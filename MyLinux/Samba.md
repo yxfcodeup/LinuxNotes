@@ -4,7 +4,7 @@
 我的CentOS7的服务器主机名：wiself ，IP是：192.168.1.111
 注意：Windows 机器必须和这台CentOS7在同一个工作组。可以用下面的命令来检查：
 ```
-net config station
+net config workstation
 ```
 
 ![](ExternalFiles/samba_net.png)  
@@ -30,7 +30,7 @@ sudo yum install samba samba-client samba-common
 [global]
 workgroup = WORKGROUP                       ##设定Samba Server所要加入的工作组或域
 server string = Samba Server Version %v     ##设定注释，宏%v表示显示Samba的版本号
-netbios name = ployo                          ##设置Samba Server的NetBIOS名称
+netbios name = ployo                        ##设置Samba Server的NetBIOS名称
  
 map to guest = bad user                     ##开启匿名访问
      
@@ -88,3 +88,9 @@ Windows下，在命令提示行下输入：
 ```
 若要有使用的权限，在centos下，使用命令chmod对相应的文件及文件夹进行权限的修改即可。  
 对建立好的网络位置还可进行驱动符的映射操作。  
+
+### 配置文件详解  
+
+### 参考  
+* [samba配置文件smb.conf的语法格式及其重要选项的说明](http://www.cnblogs.com/lienhua34/archive/2012/03/21/2409133.html)  
+* [到目前为止，Linux下最完整的Samba服务器配置攻略 ](http://blog.chinaunix.net/uid-23069658-id-3142052.html)  
