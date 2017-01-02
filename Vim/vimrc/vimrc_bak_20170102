@@ -1,0 +1,225 @@
+set nocompatible    "去掉讨厌的有关vi一致性模式，避免以前版本的一些bug和局限
+"------------------------------------------------------------------------------
+"文档格式
+set nu
+"set encoding=utf-8
+set expandtab       "使用space代替tab
+set tabstop=4       "设置制表符(tab键)的宽度
+set softtabstop=4   "设定编辑模式下 tab 的视在宽度，这不改变 tabstop，但让编辑的时候 tab 看起来是指定的宽度
+set shiftwidth=4    "(自动) 缩进使用的4个空格，用于 'cindent', '>>', '<<' 等
+"set smarttab        "解决 shiftwidth 和 tabstop 不等时的麻烦
+set autoindent      "vim使用自动对起，也就是把当前行的对起格式应用到下一行；
+set backspace=indent,eol,start
+"set cindent        "Vim可以很好的识别出C和Java等结构化程序设计语言，并且能用C语言的缩进格式来处理程序的缩进结构
+"set smartindent    "依据上面的对起格式，智能的选择对起方式，对于类似C语言编 
+if has("syntax")
+	syntax on "语法高亮
+endif
+colorscheme default "设置配色方案
+"colorscheme contrastneed
+"colorscheme github
+"colorscheme ron
+"colorscheme desert
+"set cul            "高亮光标所在行
+"set cuc            "高亮光标所在列
+"set scrolloff=5    "光标上下两侧最少保留的屏幕行数。这使你工作时总有一些可见的上下文。
+set showmatch       "设置匹配模式，显示匹配的括号
+"set hidden          "允许在有未保存的修改时切换缓冲区，此时的修改由 vim 负责保存
+"set previewwindow  "标识预览窗口  
+
+set fileencoding=utf-8
+set fileencodings=utf-8,gbk,cp936
+set termencoding=utf-8,gb18030,gb2312,gbk
+set encoding=utf-8
+
+
+"------------------------------------------------------------------------------
+"自动加载和自动回写：设置当正在编辑的文件被外部的其它程序所修改后自动在Vim加载
+"if exists("&autoread")
+"    set autoread
+"endif
+"自动把内容写回文件: 如果文件被修改过，在每个:next、:rewind、:last、:first、:previous、:stop、:suspend、:tag、:!、:make、CTRL-] 和 CTRL-^命令时进行；
+"用 :buffer、CTRL-O、CTRL-I、'{A-Z0-9} 或 `{A-Z0-9} 命令转到别的文件时亦然。
+set autowrite       "有改动时自动写回文件
+
+
+"------------------------------------------------------------------------------
+"   n --> 普通模式
+"   v --> 可视模式
+"   i --> 插入模式
+"   c --> 命令行模式
+"   h --> 编辑帮助文件时,所有前面的模式
+"   a --> 所有前面的模式
+"   r --> hit-enter 和 more-prompt 提示时
+"if exists("&mouse")
+"    set mouse=a
+"使用鼠标这样设置后，不能用鼠标右键的”复制"了，解决方法，在复制之前，先按住Shift键
+"endif
+
+
+"------------------------------------------------------------------------------
+"默认情况下使用Vim编程，在修改文件后系统会自动生成一个带~的备份文件，如若不需要文件和备份，可以复位
+"set nobackup
+"set nowritebackup
+
+
+"------------------------------------------------------------------------------
+"编辑操作
+"set ignorecase     "搜索模式里忽略大小写   
+"set smartcase      "如果搜索模式包含大写字符，不使用 'ignorecase' 选项。只有在输入搜索模式并且打开 'ignorecase' 选项时才会使用。
+"set backspace=2    "设置退格键可用 
+"set linebreak      "整词换行
+"set whichwrap=b,s,<,>,[,]  "光标从行首和行末时可以跳到另一行去    
+
+"命令行设置 
+set showcmd         "命令行显示输入的命令   
+set showmode        "命令行显示vim当前模式   
+"搜索设置   
+"set incsearch      "逐步搜索模式，对当前键入的字符进行搜索而不必等待键入完成
+set hlsearch        "高亮搜索结果，所有结果都高亮显示，而不是只显示一个匹配 
+ 
+set history=100     "历史记录100条 
+"set viminfo='1000,<500
+
+"括号自动补全
+":inoremap ( ()<ESC>i
+":inoremap ) <c-r>=ClosePair(')')<CR>
+":inoremap { {<CR>}<ESC>O
+":inoremap } <c-r>=ClosePair('}')<CR>
+":inoremap [ []<ESC>i
+":inoremap ] <c-r>=ClosePair(']')<CR>
+":inoremap " ""<ESC>i
+":inoremap ' ''<ESC>i
+"function! ClosePair(char)
+"   if getline('.')[col('.') - 1] == a:char
+"       return "\<Right>"
+"   else
+"       return a:char
+"   endif
+"endfunction
+
+
+"------------------------------------------------------------------------------
+"拼写检查
+"map <leader>sn ]
+"map <leader>sp [
+"map <leader>sa zg
+"map <leader>s? z=
+
+
+"------------------------------------------------------------------------------
+"状态栏相关的设置
+"set statusline=[%F]%y%r%m%*%=[Line:%l/%L,Column:%c][%p%%]   "状态栏的显示格式
+"set laststatus=2   "总显示最后一个窗口的状态行；设为1则窗口数多于一个的时候显示最后一个窗口的状态行；0不显示最后一个窗口的状态行 
+set ruler           "标尺，用于显示光标位置的行号和列号，逗号分隔。每个窗口都有自己的标尺。如果窗口有状态行，标尺在那里显示。否则，它显示在屏幕的最后一行上
+
+
+"------------------------------------------------------------------------------
+"set foldmarker={{{,}}}     "指定折叠标志
+"set foldmarker={,}         "指定折叠标志
+"syntax region functionFold start="/(^/({/|/S.*{/)$/n/)/@<=/_[^}]" end="/(^{.*/)/@<!$/n/(^}/)/@=" transparent fold
+"syntax region commentFold start="/" transparent fold keepend
+"syntax region commentFold2 start="^/(^//.*$/n/)/@<!//.*/(/n///)/@=$" end="^/(^//.*$/n/)/@<=//.*/(/n///)/@!$" transparent fold keepend
+
+"set foldmethod=marker      "标志用于指定折叠。
+"set foldmethod=syntax      "语法高亮项目指定折叠。
+"set foldlevel=100          "不要自动折叠
+"set foldopen-=search       "不要打开折叠，当搜索进它里面时
+"set foldopen-=undo         "不要打开折叠，当做撤销进它里面时
+"set foldcolumn=4           "如果非零，指定宽度的列在窗口的一侧显示，指示折叠的打开和关闭。最大值为12
+
+
+"------------------------------------------------------------------------------
+"C,C++的调试(适用于在Vim中编译调试单个文件)
+"map <F7> :call Rungdb()<CR><CR><CR>
+"func! Rungdb()
+"	exec "w"
+"   exec "!gcc % -g -o %<"
+"   exec "!gdb %<"
+"endfunc
+
+"******************************************************************************
+" 插件设置                                                      
+"scope   ctags    omnicppcomplete      Taglist      QuickFix   MiniBufferExplorer       
+"NERDTree   WinManager      A       grep   NERD Commenter   SuperTag         
+"c-support                                                      
+"-------------------------------------------------------------------------------
+"快捷键设置                                                      
+"F2      自动补全的代码                                                
+"F3      根据头文件补全代码                                             
+"F4      grep                                                   
+"F5    make                                                   
+"F6      make clean                                                
+"F7      gdb（单个文件编译及调试）                                       
+"F8      更新ctags数据库                                             
+"F9      编译                                                      
+"Ctr+F9   运行                                                      
+"F10                                                         
+"F12    切换.c和.h文件                                             
+"Tag   C-X C-O 补全                                                
+"wm      WinManager                                                
+"cscope检索                                                      
+"Ctrl+Shift+- 然后按s    查找本 C 符号(可以跳过注释) 
+"Ctrl+Shift+- 然后按g    查找本定义                                       
+"Ctrl+Shift+- 然后按d    查找本函数调用的函数                                 
+"Ctrl+Shift+- 然后按c    查找调用本函数的函数                                 
+"Ctrl+Shift+- 然后按e    查找本 egrep 模式                                 
+"Ctrl+Shift+- 然后按f    查找本文件                                       
+"Ctrl+Shift+- 然后按i     查找包含本文件的文件                                 
+"******************************************************************************
+
+
+"------------------------------------------------------------------------------
+"------------------------------------其他设置----------------------------------
+"set cursorcolumn
+"set cursorline
+"hi cursorline guibg=#333333
+"hi cursorcolumn guibg=#333333
+"set t_co=256
+"color dracula
+"set background=dark
+"let g:solarized_termtrans=1
+"--------------------*.c *.cpp--------------------------
+"autocmd BufRead,BufNewFile *.c set filetype=ccpp
+"autocmd BufRead,BufNewFile *.cpp set filetype=ccpp
+"autocmd FileType ccpp colorscheme cpp
+"--------------------------------------------------------
+"set whichwrap+=<,>,h,l   " 允许backspace和光标键跨越行边界(不建议)
+"set scrolloff=3     " 光标移动到buffer的顶部和底部时保持3行距离
+"set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}   "状态行显示的内容  
+"set laststatus=2    " 启动显示状态行(1),总是显示状态行(2)
+"set foldenable      " 允许折叠
+"set foldmethod=manual   " 手动折叠 
+"语言设置
+"set langmenu=zh_CN.UTF-8
+"set helplang=cn
+"set cmdheight=2 "总是显示状态行
+"filetype on "侦测文件类型 
+"--------------------------------------------------------
+"set colorcolumn=86
+"highlight ColorColumn ctermbg=green guibg=orange
+
+"-------------------------让vim记忆上次编辑编辑的位置----
+"当~/.viminfo文件出现权限问题时会失效
+"删除文件~/.viminfo，然后重新打开vim(注意要以当前用户打开),vim会自动重建该文件
+autocmd BufReadPost *
+	\ if line("'\"")>0&&line("'\"")<=line("$") |
+	\ exe "normal g'\"" |
+	\ endif
+
+
+
+
+"-------------------------------ctags------------------------------------------
+"主要功能建立整个源码库中函数 变量 宏定义等的tag，方面在阅读源代码中能够快速的定位切换
+"map <C-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+" 按下F5重新生成tag文件，并更新taglist
+map <F5> :!ctags -R --c++-kinds=+px --fields=+ianS --extra=+q .<CR><CR> :TlistUpdate<CR>
+" --c-kinds=+
+imap <F5> <ESC>:!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR><CR> :TlistUpdate<CR>
+set tags=~/.vim/tags
+set tags=tags
+set tags+=./tags "add current directory's generated tags file
+"set tags+=~/arm/linux-2.6.24.7/tags "add new tags file(刚刚生成tags的路径，在ctags -R 生成tags文件后，不要将tags移动到别的目录，否则ctrl+］时，会提示找不到源码文件)
+
+
